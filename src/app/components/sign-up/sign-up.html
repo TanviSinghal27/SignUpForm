@@ -1,0 +1,107 @@
+<div class="signup-container">
+  <h2>Sign Up</h2>
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" placeholder="Enter your full name" />
+      @if(isInvalid('name')){
+      <div class="error-msg">
+        @if(signUpForm.get('name')?.hasError('required')){Name is required.}
+        @if(signUpForm.get('name')?.hasError('minlength')){Name must be at least 3 characters}
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="example@domain.com" />
+      @if(isInvalid('email')){
+      <div class="error-msg">
+        @if (signUpForm.get('email')?.hasError('required')){Email is required.}
+        @if (signUpForm.get('email')?.hasError('email')) {Invalid email format.}
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="mobile">Mobile Number</label>
+      <input id="mobile" type="text" formControlName="mobile" placeholder="10-digit mobile number" />
+      @if(isInvalid('mobile')){
+      <div class="error-msg">
+        @if (signUpForm.get('mobile')?.hasError('required')){Contact is required.}
+        @if (signUpForm.get('mobile')?.hasError('pattern')){Contact must be of 10-digit only.}
+      </div>
+      }
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="......." />
+      @if(isInvalid('password')){
+      <div class="error-msg">
+        @if (signUpForm.get('password')?.hasError('required')){Password is required.}
+        @if (signUpForm.get('password')?.hasError('min-length')){Password must have min-length of 6 characters.}
+        @if (signUpForm.get('password')?.hasError('pattern')){Password must contain 1 Upper Case letter,1 Lower Case
+        Letter,1 symbol,1-digit}
+      </div>
+      }
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm-Password</label>
+      <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="......." />
+      @if(isInvalid('confirmPassword')){
+      <div class="error-msg">
+        @if (signUpForm.get('confirmPassword')?.hasError('required')){Please confirm your password.}
+        @if (signUpForm.get('confirmPassword')?.hasError('passwordMismatch')){Password Mismatch error.}
+      </div>
+      }
+    </div>
+    <div class="form-group">
+      <label>Gender</label>
+      <div class="radio-group">
+        <label><input type="radio" value="Male" formControlName="gender" />Male</label>
+        <label><input type="radio" value="Female" formControlName="gender" />Female</label>
+        <label><input type="radio" value="Other" formControlName="gender" />Other</label>
+      </div>
+      @if(isInvalid('gender')){
+      <div class="error-msg">Please select your gender.</div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country</label>
+      <select id="country" formControlName="country">
+        <option value="">-----Select country------</option>
+        @for (c of countries; track c){
+        <option [value]="c">{{c}}</option>
+        }
+      </select>
+      @if(isInvalid('country')){<div class="error-msg">Country selection is required.</div>}
+    </div>
+
+    <div class="form-group">
+      <label for="state">State</label>
+      <select id="state" formControlName="state">
+        <option value="">-----Select------</option>
+        @for (s of states;track s){
+        <option [value]="s">{{s}}</option>
+        }
+      </select>
+      @if(isInvalid('state')){<div class="error-msg">State selection is required.</div>}
+    </div>
+
+    <div class="form-group">
+      <label for="city">City</label>
+      <select id="city" formControlName="city">
+        <option value="">-----Select------</option>
+        @for (c of cities; track c){
+        <option [value]="c">{{c}}</option>
+        }
+      </select>
+      @if(isInvalid('city')){<div class="error-msg">City selection is required.</div>}
+    </div>
+
+
+
+    <button type="submit" [disabled]="signUpForm.invalid">Register</button>
+  </form>
+</div>
